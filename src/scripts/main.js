@@ -1,39 +1,33 @@
 'use strict';
 
 document.addEventListener('click', (evt) => {
-  const wallElement = document.querySelector('.wall');
+  const wall = document.querySelector('.wall');
 
-  if (!wallElement.contains(evt.target)) {
+  if (!wall.contains(evt.target)) {
     return;
   }
 
-  const spiderElement = document.querySelector('.spider');
-  const spiderCenterX = spiderElement.clientWidth / 2;
-  const spiderCenterY = spiderElement.clientHeight / 2;
+  const spider = document.querySelector('.spider');
+  const spiderCenterX = spider.clientWidth / 2;
+  const spiderCenterY = spider.clientHeight / 2;
 
-  const wallRect = wallElement.getBoundingClientRect();
+  const wallRect = wall.getBoundingClientRect();
 
-  const spiderCoordinates = {
+  const coordinates = {
     x: evt.clientX - wallRect.left - spiderCenterX,
     y: evt.clientY - wallRect.top - spiderCenterY,
   };
 
-  spiderCoordinates.x = Math.max(
+  coordinates.x = Math.max(
     0,
-    Math.min(
-      spiderCoordinates.x,
-      wallElement.clientWidth - spiderElement.clientWidth,
-    ),
+    Math.min(coordinates.x, wall.clientWidth - spider.clientWidth),
   );
 
-  spiderCoordinates.y = Math.max(
+  coordinates.y = Math.max(
     0,
-    Math.min(
-      spiderCoordinates.y,
-      wallElement.clientHeight - spiderElement.clientHeight,
-    ),
+    Math.min(coordinates.y, wall.clientHeight - spider.clientHeight),
   );
 
-  spiderElement.style.left = spiderCoordinates.x + 'px';
-  spiderElement.style.top = spiderCoordinates.y + 'px';
+  spider.style.left = `${coordinates.x}px`;
+  spider.style.top = `${coordinates.y}px`;
 });
